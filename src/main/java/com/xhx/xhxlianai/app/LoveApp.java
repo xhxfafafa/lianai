@@ -3,11 +3,10 @@ package com.xhx.xhxlianai.app;
 
 import com.xhx.xhxlianai.advisor.MyLoggerAdvisor;
 import com.xhx.xhxlianai.advisor.ReReadingAdvisor;
-//import com.xhx.xhxlianai.chatMemory.FileBasedChatMemory;
+import com.xhx.xhxlianai.chatMemory.FileBasedChatMemory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
-//import org.springframework.ai.chat.client.advisor.vectorstore.QuestionAnswerAdvisor;
 import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.memory.InMemoryChatMemoryRepository;
 import org.springframework.ai.chat.memory.MessageWindowChatMemory;
@@ -29,12 +28,12 @@ public class LoveApp {
     private final ChatClient chatClient;
 
     public LoveApp(ChatModel chatModel) {
-//        String fileDir = System.getProperty("user.dir") + "/tmp/chat-memory";
-//        ChatMemory chatMemory = new FileBasedChatMemory(fileDir);
-        ChatMemory chatMemory = MessageWindowChatMemory.builder()
-                .chatMemoryRepository(new InMemoryChatMemoryRepository())
-                .maxMessages(20)
-                .build();
+        String fileDir = System.getProperty("user.dir") + "/tmp/chat-memory";
+        ChatMemory chatMemory = new FileBasedChatMemory(fileDir);
+//        ChatMemory chatMemory = MessageWindowChatMemory.builder()
+//                .chatMemoryRepository(new InMemoryChatMemoryRepository())
+//                .maxMessages(20)
+//                .build();
         this.chatClient = ChatClient.builder(chatModel)
                 .defaultSystem(SYSTEM_PROMPT)
                 .defaultAdvisors(
